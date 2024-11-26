@@ -9,7 +9,7 @@ void fragment() {
 	
 	float noise = texture(noise_texture, uv).r;
 	
-	float fog = noise * 1.4 - 1.4;
+	float fog = noise * 1.4 - 1.45;
 	
 	COLOR.a += fog * density;
 }
