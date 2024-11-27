@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cnmplqewg2glk"]
+[gd_scene load_steps=23 format=3 uid="uid://cnmplqewg2glk"]
 
 [ext_resource type="Texture2D" uid="uid://1ja0dtaokop6" path="res://res/tileSet/TX Tileset Grass.png" id="1_q12vn"]
 [ext_resource type="Texture2D" uid="uid://gn1x1ucg8fr4" path="res://res/tileSet/TX Tileset Wall.png" id="2_eoauo"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dbfvw6aqp4ulb" path="res://res/tileSet/TX Shadow Plant.png" id="6_j2ikt"]
 [ext_resource type="Texture2D" uid="uid://cn41br7datfpe" path="res://res/tileSet/TX Shadow.png" id="7_p7yx1"]
 [ext_resource type="Shader" path="res://scripts/fog.gdshader" id="9_ub1wd"]
+[ext_resource type="PackedScene" uid="uid://y5nkq2pfds87" path="res://screans/enemy.tscn" id="10_1ia63"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r70fx"]
 texture = ExtResource("1_q12vn")
@@ -1777,10 +1778,46 @@ layer_6/tile_data = PackedInt32Array(6291480, 1376261, 11, 6619142, 1114117, 268
 [node name="player" parent="." instance=ExtResource("3_bfole")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 z_index = 2
 material = SubResource("ShaderMaterial_4yxnm")
 offset_left = -1169.0
 offset_top = -1857.0
 offset_right = 1345.0
 offset_bottom = 515.0
-color = Color(0.72549, 1, 1, 1)
+color = Color(0.545098, 1, 1, 1)
+
+[node name="enemy" parent="." instance=ExtResource("10_1ia63")]
+position = Vector2(455, -291)
+
+[node name="enemy2" parent="." instance=ExtResource("10_1ia63")]
+visible = false
+position = Vector2(-467, -243)
+
+[node name="enemy3" parent="." instance=ExtResource("10_1ia63")]
+visible = false
+position = Vector2(910, -582)
+
+[node name="enemy4" parent="." instance=ExtResource("10_1ia63")]
+visible = false
+position = Vector2(-554, -880)
+
+[node name="enemy5" parent="." instance=ExtResource("10_1ia63")]
+visible = false
+position = Vector2(-99, -1171)
+
+[node name="enemy6" parent="." instance=ExtResource("10_1ia63")]
+visible = false
+position = Vector2(444, -1255)
+
+[node name="enemy7" parent="." instance=ExtResource("10_1ia63")]
+visible = false
+position = Vector2(680, -868)
+
+[node name="enemy8" parent="." instance=ExtResource("10_1ia63")]
+visible = false
+position = Vector2(153, -465)
+
+[node name="enemy9" parent="." instance=ExtResource("10_1ia63")]
+visible = false
+position = Vector2(-246, -561)
