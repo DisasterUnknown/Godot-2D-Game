@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://y5nkq2pfds87"]
+[gd_scene load_steps=22 format=3 uid="uid://y5nkq2pfds87"]
 
 [ext_resource type="Texture2D" uid="uid://brr0cltpmhcl6" path="res://res/enime/slime.png" id="1_15ak0"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_jmi4p"]
+[ext_resource type="AudioStream" uid="uid://jifivv4v41pm" path="res://audio/slimeJump.mp3" id="3_av4oa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qbws7"]
 atlas = ExtResource("1_15ak0")
@@ -123,7 +124,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 7.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mdabd"]
@@ -139,8 +140,7 @@ script = ExtResource("1_jmi4p")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.65625, 1.53125)
 sprite_frames = SubResource("SpriteFrames_xpdig")
-animation = &"idle"
-frame_progress = 0.834898
+animation = &"walk"
 offset = Vector2(0, -5)
 
 [node name="detection_area" type="Area2D" parent="."]
@@ -154,6 +154,11 @@ shape = SubResource("CircleShape2D_mdabd")
 position = Vector2(-9.53674e-07, 1.43051e-06)
 rotation = 1.56335
 shape = SubResource("CapsuleShape2D_7gdcc")
+
+[node name="AudioStreamSlime_jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_av4oa")
+volume_db = 6.0
+max_distance = 200.0
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]

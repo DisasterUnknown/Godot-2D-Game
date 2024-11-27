@@ -1,10 +1,13 @@
 extends CharacterBody2D
 
+@onready var playerAudioWalk = $AudioStreamPlayer_walking
+
 const speed = 150
 var current_dir = "none"
 
 func _ready():
 	$AnimatedSprite2D.play("idle_front")
+	#playerAudioWalk.play()
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -13,30 +16,43 @@ func player_movement(delta):
 	if Input.is_action_pressed("ui_right"):
 		current_dir = "right"
 		play_anim(1)
+		audio_play(1)
 		velocity.x = speed
 		velocity.y = 0
 	elif Input.is_action_pressed("ui_left"):
 		current_dir = "left"
 		play_anim(1)
+		audio_play(1)
 		velocity.x = -speed
 		velocity.y = 0
 	elif Input.is_action_pressed("ui_up"):
 		current_dir = "up"
 		play_anim(1)
+		audio_play(1)
 		velocity.x = 0
 		velocity.y = -speed
 	elif Input.is_action_pressed("ui_down"):
 		current_dir = "down"
 		play_anim(1)
+		audio_play(1)
 		velocity.x = 0
 		velocity.y = speed
 	else:
 		play_anim(0)
+		audio_play(0)
 		velocity.x = 0
 		velocity.y = 0
 		
 	move_and_slide() 
 	
+
+func audio_play(movement):
+	if movement == 1:
+		if (!playerAudioWalk.playing):
+			playerAudioWalk.play()
+	else:
+		playerAudioWalk.stop()
+
 
 func play_anim(movement):
 	var dir = current_dir

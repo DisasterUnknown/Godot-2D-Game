@@ -1,7 +1,8 @@
-[gd_scene load_steps=56 format=3 uid="uid://bct2h5k2rpbnq"]
+[gd_scene load_steps=57 format=3 uid="uid://bct2h5k2rpbnq"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tfc6w"]
 [ext_resource type="Texture2D" uid="uid://c1fga2vwtmicx" path="res://res/player/player.png" id="2_nd5xm"]
+[ext_resource type="AudioStream" uid="uid://c8j4up5meq2rd" path="res://audio/grassSteps.mp3" id="3_jyfbu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ka7e0"]
 radius = 9.99987
@@ -434,3 +435,7 @@ frame_progress = 0.851272
 offset = Vector2(-0.5, -15)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="AudioStreamPlayer_walking" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_jyfbu")
+volume_db = 20.0
