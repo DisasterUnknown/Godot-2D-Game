@@ -1,8 +1,9 @@
-[gd_scene load_steps=57 format=3 uid="uid://bct2h5k2rpbnq"]
+[gd_scene load_steps=61 format=3 uid="uid://bct2h5k2rpbnq"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tfc6w"]
 [ext_resource type="Texture2D" uid="uid://c1fga2vwtmicx" path="res://res/player/player.png" id="2_nd5xm"]
 [ext_resource type="AudioStream" uid="uid://c8j4up5meq2rd" path="res://audio/grassSteps.mp3" id="3_jyfbu"]
+[ext_resource type="Script" path="res://scripts/playerLamp.gd" id="4_urwlr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ka7e0"]
 radius = 9.99987
@@ -418,6 +419,18 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_fyssb"]
+offsets = PackedFloat32Array(0.498039, 0.615686, 0.705882)
+colors = PackedColorArray(1, 1, 0.247059, 1, 0.483696, 0.483696, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_thmdy"]
+gradient = SubResource("Gradient_fyssb")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j1wwl"]
+radius = 26.0
+
 [node name="player" type="CharacterBody2D"]
 collision_layer = 3
 script = ExtResource("1_tfc6w")
@@ -430,8 +443,7 @@ shape = SubResource("CapsuleShape2D_ka7e0")
 y_sort_enabled = true
 scale = Vector2(1.89583, 1.89583)
 sprite_frames = SubResource("SpriteFrames_1tc7s")
-animation = &"idle_front"
-frame_progress = 0.851272
+animation = &"back_attack"
 offset = Vector2(-0.5, -15)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -439,3 +451,27 @@ offset = Vector2(-0.5, -15)
 [node name="AudioStreamPlayer_walking" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_jyfbu")
 volume_db = 20.0
+bus = &"SFX"
+
+[node name="PointLight_PlayerLamp" type="PointLight2D" parent="."]
+position = Vector2(0, -10)
+texture = SubResource("GradientTexture2D_thmdy")
+texture_scale = 5.0
+script = ExtResource("4_urwlr")
+
+[node name="player_hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_j1wwl")
+
+[node name="gainDmg_cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="dealAtk_timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="timeout" from="gainDmg_cooldown" to="." method="_on_atk_cooldown_timeout"]
+[connection signal="timeout" from="dealAtk_timer" to="." method="_on_deal_atk_timer_timeout"]

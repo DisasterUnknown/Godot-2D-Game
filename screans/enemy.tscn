@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://y5nkq2pfds87"]
+[gd_scene load_steps=23 format=3 uid="uid://y5nkq2pfds87"]
 
 [ext_resource type="Texture2D" uid="uid://brr0cltpmhcl6" path="res://res/enime/slime.png" id="1_15ak0"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_jmi4p"]
@@ -134,13 +134,17 @@ radius = 129.062
 radius = 2.97866
 height = 31.9518
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_v42uj"]
+radius = 20.0
+
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_jmi4p")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.65625, 1.53125)
 sprite_frames = SubResource("SpriteFrames_xpdig")
-animation = &"walk"
+animation = &"death"
+frame_progress = 0.376256
 offset = Vector2(0, -5)
 
 [node name="detection_area" type="Area2D" parent="."]
@@ -159,6 +163,23 @@ shape = SubResource("CapsuleShape2D_7gdcc")
 stream = ExtResource("3_av4oa")
 volume_db = 6.0
 max_distance = 200.0
+bus = &"SFX"
+
+[node name="enemy_hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_v42uj")
+
+[node name="gainDmg_cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="death_ani_cooldown" type="Timer" parent="."]
+wait_time = 0.6
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_entered"]
+[connection signal="body_exited" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_exited"]
+[connection signal="timeout" from="gainDmg_cooldown" to="." method="_on_gain_dmg_cooldown_timeout"]
+[connection signal="timeout" from="death_ani_cooldown" to="." method="_on_death_ani_cooldown_timeout"]
