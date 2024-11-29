@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bd7lif0tjt5bq" path="res://res/tileSet/TX Plant.png" id="5_weku6"]
 [ext_resource type="Texture2D" uid="uid://dbfvw6aqp4ulb" path="res://res/tileSet/TX Shadow Plant.png" id="6_j2ikt"]
 [ext_resource type="Texture2D" uid="uid://cn41br7datfpe" path="res://res/tileSet/TX Shadow.png" id="7_p7yx1"]
-[ext_resource type="Shader" path="res://scripts/fog.gdshader" id="9_ub1wd"]
+[ext_resource type="Shader" path="res://shader/fog.gdshader" id="9_ub1wd"]
 [ext_resource type="PackedScene" uid="uid://y5nkq2pfds87" path="res://screans/enemy.tscn" id="10_1ia63"]
 [ext_resource type="AudioStream" uid="uid://cqqfm7rvj002s" path="res://audio/mainTheme1.mp3" id="11_gje7w"]
 
@@ -1779,7 +1779,6 @@ layer_6/tile_data = PackedInt32Array(6291480, 1376261, 11, 6619142, 1114117, 268
 [node name="player" parent="." instance=ExtResource("3_bfole")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 z_index = 2
 material = SubResource("ShaderMaterial_4yxnm")
 offset_left = -1169.0

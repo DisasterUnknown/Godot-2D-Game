@@ -1,13 +1,13 @@
-[gd_scene load_steps=61 format=3 uid="uid://bct2h5k2rpbnq"]
+[gd_scene load_steps=62 format=3 uid="uid://bct2h5k2rpbnq"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tfc6w"]
 [ext_resource type="Texture2D" uid="uid://c1fga2vwtmicx" path="res://res/player/player.png" id="2_nd5xm"]
 [ext_resource type="AudioStream" uid="uid://c8j4up5meq2rd" path="res://audio/grassSteps.mp3" id="3_jyfbu"]
+[ext_resource type="AudioStream" uid="uid://cnybbvyqp0b0w" path="res://audio/swordAttack.mp3" id="4_6cc1e"]
 [ext_resource type="Script" path="res://scripts/playerLamp.gd" id="4_urwlr"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ka7e0"]
-radius = 9.99987
-height = 35.9995
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x4t1g"]
+height = 39.9995
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ccked"]
 atlas = ExtResource("2_nd5xm")
@@ -436,22 +436,18 @@ collision_layer = 3
 script = ExtResource("1_tfc6w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.86265e-09, -3)
 rotation = -1.56564
-shape = SubResource("CapsuleShape2D_ka7e0")
+shape = SubResource("CapsuleShape2D_x4t1g")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 scale = Vector2(1.89583, 1.89583)
 sprite_frames = SubResource("SpriteFrames_1tc7s")
-animation = &"back_attack"
+animation = &"side_walk"
 offset = Vector2(-0.5, -15)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="AudioStreamPlayer_walking" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_jyfbu")
-volume_db = 20.0
-bus = &"SFX"
 
 [node name="PointLight_PlayerLamp" type="PointLight2D" parent="."]
 position = Vector2(0, -10)
@@ -470,6 +466,15 @@ wait_time = 0.5
 
 [node name="dealAtk_timer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="AudioStreamPlayer_attack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_6cc1e")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer_walking" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_jyfbu")
+volume_db = 20.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
