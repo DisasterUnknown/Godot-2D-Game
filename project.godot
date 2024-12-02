@@ -25,7 +25,7 @@ Global="*res://scripts/global.gd"
 
 [display]
 
-window/stretch/scale=2.0
+window/stretch/scale=2.5
 
 [dotnet]
 

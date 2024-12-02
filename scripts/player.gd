@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 var enemy_inAtk_range = false
 var atk_cooldown = true
-var health = 500
+var health = 100
 var player_alive = true
 
 var attack_ip = false
@@ -19,6 +19,7 @@ func _ready():
 
 # This function runs evey frome itteration (ones evey game cycle)
 func _physics_process(delta):
+	UpdateHealthBar()
 	enemy_atk()
 	attack()
 	
@@ -134,10 +135,20 @@ func _on_player_hitbox_body_exited(body):
 # When enemy is in attack range
 func enemy_atk():
 	if enemy_inAtk_range and atk_cooldown:
-		#health = health - 20
+		health = health - 10
+		dmgAnimation()
 		atk_cooldown = false
 		$gainDmg_cooldown.start()
 		print("Player Health: ", health)
+
+
+# Get dmg color animation
+func dmgAnimation():
+	for i in range(2):
+		await get_tree().create_timer(0.1).timeout
+		$AnimatedSprite2D.modulate = Color.RED
+		await get_tree().create_timer(0.1).timeout
+		$AnimatedSprite2D.modulate = Color.WHITE
 
 
 # Attack cooldown timer
@@ -180,3 +191,23 @@ func _on_deal_atk_timer_timeout():
 	attacking = false
 	Global.player_current_atk = false
 	attack_ip = false
+
+
+func UpdateHealthBar():
+	var healthbar = $HealthBar
+	healthbar.value = health
+	
+	if health >= 100:
+		healthbar.visible = false
+	else :
+		healthbar.visible = true
+
+
+func _on_regin_time_timeout():
+	if health < 100 and !attacking:
+		health += 20
+		if health > 100:
+			health = 100
+	
+	if health <= 0:
+		health = 0

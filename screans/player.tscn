@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/playerLamp.gd" id="4_urwlr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x4t1g"]
-height = 39.9995
+height = 35.9995
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ccked"]
 atlas = ExtResource("2_nd5xm")
@@ -420,8 +420,8 @@ animations = [{
 }]
 
 [sub_resource type="Gradient" id="Gradient_fyssb"]
-offsets = PackedFloat32Array(0.498039, 0.615686, 0.705882)
-colors = PackedColorArray(1, 1, 0.247059, 1, 0.483696, 0.483696, 0, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0.258865, 0.535461, 0.659574)
+colors = PackedColorArray(1, 1, 0.247059, 1, 0.14058, 0.14058, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_thmdy"]
 gradient = SubResource("Gradient_fyssb")
@@ -429,7 +429,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j1wwl"]
-radius = 26.0
+radius = 23.0
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 3
@@ -444,13 +444,14 @@ shape = SubResource("CapsuleShape2D_x4t1g")
 y_sort_enabled = true
 scale = Vector2(1.89583, 1.89583)
 sprite_frames = SubResource("SpriteFrames_1tc7s")
-animation = &"side_walk"
+animation = &"idle_front"
 offset = Vector2(-0.5, -15)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="PointLight_PlayerLamp" type="PointLight2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(3.57628e-07, -11)
+scale = Vector2(0.339062, 0.339062)
 texture = SubResource("GradientTexture2D_thmdy")
 texture_scale = 5.0
 script = ExtResource("4_urwlr")
@@ -476,7 +477,21 @@ stream = ExtResource("3_jyfbu")
 volume_db = 20.0
 bus = &"SFX"
 
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(1.92523e-07, 0.822991, 2.31028e-06, 1)
+offset_left = -9.0
+offset_top = 5.0
+offset_right = 171.0
+offset_bottom = 32.0
+scale = Vector2(0.1, 0.1)
+show_percentage = false
+
+[node name="Regin_Time" type="Timer" parent="HealthBar"]
+wait_time = 4.0
+autostart = true
+
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
 [connection signal="timeout" from="gainDmg_cooldown" to="." method="_on_atk_cooldown_timeout"]
 [connection signal="timeout" from="dealAtk_timer" to="." method="_on_deal_atk_timer_timeout"]
+[connection signal="timeout" from="HealthBar/Regin_Time" to="." method="_on_regin_time_timeout"]

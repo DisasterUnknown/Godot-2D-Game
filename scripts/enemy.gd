@@ -6,7 +6,7 @@ var speed = 85
 var player_chase = false
 var player = null
 
-var health = 60
+var health = 100
 var player_inAtk_range = false
 var can_take_dmg = true
 var dying = false
@@ -27,23 +27,23 @@ func audio_play(movement, track):
 
 # Runs every physics frame
 func _physics_process(delta):
+	UpdateHealthBar()
 	deal_with_dmg()
 	
-	if !dying:
-		if knockback:
-			var knockValue = (position - player.position).normalized() * (speed * 3)
-			var knockback_move = move_and_collide(knockValue * delta)
-			await get_tree().create_timer(0.2).timeout
-			knockback = false
-		elif player_chase:
-			position += (player.position - position).normalized() * speed * delta
-			move_and_collide(Vector2(0,0))
+	if knockback and !dying:
+		var knockValue = (position - player.position).normalized() * (speed * 3)
+		var knockback_move = move_and_collide(knockValue * delta)
+		await get_tree().create_timer(0.2).timeout
+		knockback = false
+	elif player_chase and !dying:
+		position += (player.position - position).normalized() * speed * delta
+		move_and_collide(Vector2(0,0))
 
-			$AnimatedSprite2D.play("walk")
-			audio_play(1, "walk")
-		else:
-			$AnimatedSprite2D.play("idle")
-			audio_play(0, "walk")
+		$AnimatedSprite2D.play("walk")
+		audio_play(1, "walk")
+	elif !dying:
+		$AnimatedSprite2D.play("idle")
+		audio_play(0, "walk")
 
 
 # Creates an enemy method
@@ -78,7 +78,7 @@ func _on_enemy_hitbox_body_exited(body):
 # If the player is attacking
 func deal_with_dmg():
 	if player_inAtk_range and Global.player_current_atk and can_take_dmg:
-		health = health - 20
+		health = health - 25
 		can_take_dmg = false
 		$gainDmg_cooldown.start()
 		dmgAnimation()
@@ -86,6 +86,7 @@ func deal_with_dmg():
 		if health <= 0:
 			dying = true
 			$AnimatedSprite2D.play("death")
+			dmgAnimation()
 			audio_play(1, "death")
 			await get_tree().create_timer(0.6).timeout         # Waits for a few seconds
 			self.queue_free()
@@ -93,14 +94,34 @@ func deal_with_dmg():
 
 # Get dmg color animation
 func dmgAnimation():
-	if health > 0:
-		await get_tree().create_timer(0.2).timeout
-		$AnimatedSprite2D.modulate = Color.RED
-		knockback = true
-		await get_tree().create_timer(0.2).timeout
-		$AnimatedSprite2D.modulate = Color.WHITE
+	await get_tree().create_timer(0.2).timeout
+	$AnimatedSprite2D.modulate = Color.RED
+	knockback = true
+	await get_tree().create_timer(0.2).timeout
+	$AnimatedSprite2D.modulate = Color.WHITE
 
 
 # Dmg gaining cooldown timer
 func _on_gain_dmg_cooldown_timeout():
 	can_take_dmg = true
+	
+	
+func UpdateHealthBar():
+	var healthbar = $HealthBar
+	healthbar.value = health
+	
+	if health >= 100:
+		healthbar.visible = false
+	else :
+		healthbar.visible = true
+
+
+func _on_health_regen_timeout():
+	print("hello")
+	if health < 100 and !player_chase:
+		health += 100
+		if health > 100:
+			health = 100
+	
+	if health <= 0:
+		health = 0

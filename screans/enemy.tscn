@@ -136,7 +136,7 @@ radius = 2.97866
 height = 31.9518
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v42uj"]
-radius = 20.0
+radius = 28.0
 
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_jmi4p")
@@ -144,12 +144,10 @@ script = ExtResource("1_jmi4p")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.65625, 1.53125)
 sprite_frames = SubResource("SpriteFrames_xpdig")
-animation = &"death"
-frame_progress = 0.376256
+animation = &"idle"
 offset = Vector2(0, -5)
 
 [node name="detection_area" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -162,7 +160,6 @@ rotation = 1.56335
 shape = SubResource("CapsuleShape2D_7gdcc")
 
 [node name="enemy_hitbox" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox"]
 position = Vector2(0, -8)
@@ -181,8 +178,22 @@ volume_db = 6.0
 max_distance = 200.0
 bus = &"SFX"
 
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0, 1, 0, 1)
+offset_left = -10.0
+offset_top = 1.0
+offset_right = 190.0
+offset_bottom = 28.0
+scale = Vector2(0.1, 0.1)
+show_percentage = false
+
+[node name="HealthRegen" type="Timer" parent="HealthBar"]
+wait_time = 20.0
+autostart = true
+
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
 [connection signal="body_entered" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_entered"]
 [connection signal="body_exited" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_exited"]
 [connection signal="timeout" from="gainDmg_cooldown" to="." method="_on_gain_dmg_cooldown_timeout"]
+[connection signal="timeout" from="HealthBar/HealthRegen" to="." method="_on_health_regen_timeout"]

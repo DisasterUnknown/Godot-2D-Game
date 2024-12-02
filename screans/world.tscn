@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cnmplqewg2glk"]
+[gd_scene load_steps=28 format=3 uid="uid://cnmplqewg2glk"]
 
 [ext_resource type="Texture2D" uid="uid://1ja0dtaokop6" path="res://res/tileSet/TX Tileset Grass.png" id="1_q12vn"]
 [ext_resource type="Texture2D" uid="uid://gn1x1ucg8fr4" path="res://res/tileSet/TX Tileset Wall.png" id="2_eoauo"]
@@ -11,6 +11,7 @@
 [ext_resource type="Shader" path="res://shader/fog.gdshader" id="9_ub1wd"]
 [ext_resource type="PackedScene" uid="uid://y5nkq2pfds87" path="res://screans/enemy.tscn" id="10_1ia63"]
 [ext_resource type="AudioStream" uid="uid://cqqfm7rvj002s" path="res://audio/mainTheme1.mp3" id="11_gje7w"]
+[ext_resource type="Script" path="res://scripts/dayNightCycle.gd" id="12_yy7f3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r70fx"]
 texture = ExtResource("1_q12vn")
@@ -1749,6 +1750,15 @@ shader_parameter/density = 0.792
 shader_parameter/speed = Vector2(0.02, 0.01)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_lxqid")
 
+[sub_resource type="GDScript" id="GDScript_ep16p"]
+
+[sub_resource type="Gradient" id="Gradient_certe"]
+offsets = PackedFloat32Array(0, 0.262411, 0.482269, 0.539007, 0.599291, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.920761, 0.941111, 0.96108, 1, 0.961503, 0.7468, 0.81405, 1, 0.998269, 0.571446, 0.681364, 1, 0.213893, 0.415776, 0.613886, 1, 0.184329, 0.393805, 0.599365, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xeiqc"]
+gradient = SubResource("Gradient_certe")
+
 [node name="world" type="Node2D"]
 y_sort_enabled = true
 
@@ -1779,13 +1789,15 @@ layer_6/tile_data = PackedInt32Array(6291480, 1376261, 11, 6619142, 1114117, 268
 [node name="player" parent="." instance=ExtResource("3_bfole")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visibility_layer = 4
 z_index = 2
 material = SubResource("ShaderMaterial_4yxnm")
 offset_left = -1169.0
 offset_top = -1857.0
 offset_right = 1345.0
 offset_bottom = 515.0
-color = Color(0.545098, 1, 1, 1)
+color = Color(0.590216, 0.753623, 1, 1)
+script = SubResource("GDScript_ep16p")
 
 [node name="enemy" parent="." instance=ExtResource("10_1ia63")]
 position = Vector2(455, -291)
@@ -1814,10 +1826,34 @@ position = Vector2(153, -465)
 [node name="enemy9" parent="." instance=ExtResource("10_1ia63")]
 position = Vector2(-246, -561)
 
+[node name="enemy10" parent="." instance=ExtResource("10_1ia63")]
+position = Vector2(528, -604)
+
+[node name="enemy11" parent="." instance=ExtResource("10_1ia63")]
+position = Vector2(-158, -788)
+
+[node name="enemy12" parent="." instance=ExtResource("10_1ia63")]
+position = Vector2(-745, -566)
+
+[node name="enemy13" parent="." instance=ExtResource("10_1ia63")]
+position = Vector2(-67, -276)
+
+[node name="enemy14" parent="." instance=ExtResource("10_1ia63")]
+position = Vector2(-279, -1057)
+
+[node name="enemy15" parent="." instance=ExtResource("10_1ia63")]
+position = Vector2(208, -810)
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(228, -744)
 stream = ExtResource("11_gje7w")
 volume_db = 0.8
+autoplay = true
 max_distance = 4000.0
 attenuation = 1e-05
 bus = &"Music"
+
+[node name="DayCycle" type="CanvasModulate" parent="."]
+visibility_layer = 2
+script = ExtResource("12_yy7f3")
+gradinet = SubResource("GradientTexture2D_xeiqc")
