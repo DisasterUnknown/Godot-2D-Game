@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var playerAudioWalk = $AudioStreamPlayer_walking
 
+var slime
+
 var enemy_inAtk_range = false
 var atk_cooldown = true
 var health = 100
@@ -123,6 +125,7 @@ func player():
 # what todo when the enemy enters the player body
 func _on_player_hitbox_body_entered(body):
 	if body.has_method("enemy"):
+		slime = body.get_node_or_null("AnimatedSprite2D")
 		enemy_inAtk_range = true
 
 
@@ -134,7 +137,7 @@ func _on_player_hitbox_body_exited(body):
 
 # When enemy is in attack range
 func enemy_atk():
-	if enemy_inAtk_range and atk_cooldown:
+	if enemy_inAtk_range and atk_cooldown and slime.visible:
 		health = health - 10
 		dmgAnimation()
 		atk_cooldown = false

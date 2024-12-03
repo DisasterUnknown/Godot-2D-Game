@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var slimeAudioWalk = $AudioStreamSlime_jump
+@onready var displayOrigin = $RewordDisplay
 
 var speed = 85 
 var player_chase = false
@@ -12,6 +13,7 @@ var can_take_dmg = true
 var dying = false
 var knockback = false
 
+@onready var slimeItem = $slimeCollectable
 
 # Runs all the audio related to the slime ccording to the parramenters
 func audio_play(movement, track):
@@ -85,11 +87,32 @@ func deal_with_dmg():
 		print("Slime Health: ", health)
 		if health <= 0:
 			dying = true
+			Status.displayReword(displayOrigin.global_position)
+			
 			$AnimatedSprite2D.play("death")
 			dmgAnimation()
 			audio_play(1, "death")
 			await get_tree().create_timer(0.6).timeout         # Waits for a few seconds
-			self.queue_free()
+			dropItem()
+
+
+# Droping an silme item when the slime is dead
+func dropItem():
+	$AnimatedSprite2D.visible = false
+	$enemy_hitbox/CollisionShape2D.disabled = true
+	$detection_area/CollisionShape2D.disabled = true
+	$AudioStreamSlime_jump.stop()
+	$HealthBar.visible = false
+	
+	slimeItem.visible = true
+	collectSlimeDrop()
+
+
+# Slime dead drops
+func collectSlimeDrop():
+	await get_tree().create_timer(1.5).timeout
+	slimeItem.visible = false
+	self.queue_free()
 
 
 # Get dmg color animation
@@ -104,8 +127,9 @@ func dmgAnimation():
 # Dmg gaining cooldown timer
 func _on_gain_dmg_cooldown_timeout():
 	can_take_dmg = true
-	
-	
+
+
+# Updating the health bar according to health
 func UpdateHealthBar():
 	var healthbar = $HealthBar
 	healthbar.value = health
@@ -116,8 +140,8 @@ func UpdateHealthBar():
 		healthbar.visible = true
 
 
+# Health regen timer
 func _on_health_regen_timeout():
-	print("hello")
 	if health < 100 and !player_chase:
 		health += 100
 		if health > 100:
