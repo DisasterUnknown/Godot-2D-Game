@@ -137,7 +137,7 @@ radius = 2.97866
 height = 31.9518
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v42uj"]
-radius = 28.0
+radius = 23.0
 
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_jmi4p")
@@ -165,7 +165,6 @@ rotation = 1.56335
 shape = SubResource("CapsuleShape2D_7gdcc")
 
 [node name="enemy_hitbox" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox"]
 position = Vector2(0, -8)

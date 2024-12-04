@@ -2,8 +2,11 @@ extends CharacterBody2D
 
 @onready var slimeAudioWalk = $AudioStreamSlime_jump
 @onready var displayOrigin = $RewordDisplay
+@onready var worldNode = get_node("/root/world")
+@onready var spawnPosition = position
 
 var speed = 85 
+var spawnCountDown = Status.slimeSpawnTIME
 var player_chase = false
 var player = null
 
@@ -110,6 +113,7 @@ func dropItem():
 	
 	slimeItem.visible = true
 	collectSlimeDrop()
+	worldNode.respawn_enemy(spawnPosition, spawnCountDown)
 
 
 # Slime dead drops
@@ -121,9 +125,9 @@ func collectSlimeDrop():
 
 # Get dmg color animation
 func dmgAnimation():
-	await get_tree().create_timer(0.2).timeout
-	$AnimatedSprite2D.modulate = Color.RED
 	knockback = true
+	#await get_tree().create_timer(0.2).timeout
+	$AnimatedSprite2D.modulate = Color.RED
 	await get_tree().create_timer(0.2).timeout
 	$AnimatedSprite2D.modulate = Color.WHITE
 

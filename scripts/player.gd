@@ -213,7 +213,7 @@ func UpdateHealthBar():
 
 func _on_regin_time_timeout():
 	if health < floor(Status.playerHP) and !attacking:
-		health += 20
+		health += Status.playerREGEN
 		if health > floor(Status.playerHP):
 			health = floor(Status.playerHP)
 	
