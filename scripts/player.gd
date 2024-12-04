@@ -4,14 +4,16 @@ extends CharacterBody2D
 
 var slime
 
+var speed
+var defence
+var health = Status.playerHP
+
 var enemy_inAtk_range = false
 var atk_cooldown = true
-var health = 100
 var player_alive = true
 
 var attack_ip = false
 
-const speed = 150
 var attacking = false
 var current_dir = "none"
 
@@ -21,6 +23,9 @@ func _ready():
 
 # This function runs evey frome itteration (ones evey game cycle)
 func _physics_process(delta):
+	defence = Status.playerDEF
+	speed = Status.playerSPEED
+	
 	UpdateHealthBar()
 	enemy_atk()
 	attack()
@@ -138,7 +143,7 @@ func _on_player_hitbox_body_exited(body):
 # When enemy is in attack range
 func enemy_atk():
 	if enemy_inAtk_range and atk_cooldown and slime.visible:
-		health = health - 10
+		health = health - (Status.slimeATK - randf_range(0, defence))
 		dmgAnimation()
 		atk_cooldown = false
 		$gainDmg_cooldown.start()
@@ -198,19 +203,19 @@ func _on_deal_atk_timer_timeout():
 
 func UpdateHealthBar():
 	var healthbar = $HealthBar
-	healthbar.value = health
+	healthbar.value = (health / floor(Status.playerHP)) * 100
 	
-	if health >= 100:
+	if health >= floor(Status.playerHP):
 		healthbar.visible = false
 	else :
 		healthbar.visible = true
 
 
 func _on_regin_time_timeout():
-	if health < 100 and !attacking:
+	if health < floor(Status.playerHP) and !attacking:
 		health += 20
-		if health > 100:
-			health = 100
+		if health > floor(Status.playerHP):
+			health = floor(Status.playerHP)
 	
 	if health <= 0:
 		health = 0

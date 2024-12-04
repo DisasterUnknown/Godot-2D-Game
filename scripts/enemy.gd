@@ -7,6 +7,7 @@ var speed = 85
 var player_chase = false
 var player = null
 
+var dmgTaken
 var health = 100
 var player_inAtk_range = false
 var can_take_dmg = true
@@ -29,6 +30,8 @@ func audio_play(movement, track):
 
 # Runs every physics frame
 func _physics_process(delta):
+	dmgTaken = Status.playerATK
+	
 	UpdateHealthBar()
 	deal_with_dmg()
 	
@@ -80,7 +83,7 @@ func _on_enemy_hitbox_body_exited(body):
 # If the player is attacking
 func deal_with_dmg():
 	if player_inAtk_range and Global.player_current_atk and can_take_dmg:
-		health = health - 25
+		health = health - dmgTaken
 		can_take_dmg = false
 		$gainDmg_cooldown.start()
 		dmgAnimation()
@@ -88,6 +91,7 @@ func deal_with_dmg():
 		if health <= 0:
 			dying = true
 			Status.displayReword(displayOrigin.global_position)
+			Status.debugFunc()
 			
 			$AnimatedSprite2D.play("death")
 			dmgAnimation()
