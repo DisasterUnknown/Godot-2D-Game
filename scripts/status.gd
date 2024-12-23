@@ -13,12 +13,12 @@ var playerSPEED = 150
 var playerLUCK = 10
 var playerREGEN = 10
 
-var base_probs = {"HP": 40, "ATK": 30, "DEF": 13, "SPEED": 10, "LUCK": 7}
+var base_probs = {"HP": 50, "ATK": 20, "DEF": 13, "SPEED": 10, "LUCK": 7}
 var value_ranges = {"HP": [0.5, 2.0], "ATK": [0.5, 2.0], "DEF": [0.5, 2.0], "SPEED": [0.5, 2.0], "LUCK": [0.5, 1.0]}
 
 
-var slimeHP
-var slimeATK = 20
+var slimeHP = 100
+var slimeATK = 10
 var slimeDEF
 var slimeSPEED
 var slimeSpawnTIME = 60.0

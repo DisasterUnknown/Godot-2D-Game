@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cn41br7datfpe" path="res://res/tileSet/TX Shadow.png" id="7_p7yx1"]
 [ext_resource type="Shader" path="res://shader/fog.gdshader" id="9_ub1wd"]
 [ext_resource type="PackedScene" uid="uid://y5nkq2pfds87" path="res://screans/enemy.tscn" id="10_1ia63"]
-[ext_resource type="AudioStream" uid="uid://cqqfm7rvj002s" path="res://audio/mainTheme1.mp3" id="11_gje7w"]
+[ext_resource type="AudioStream" uid="uid://dv06oluxbaw8o" path="res://audio/mainTheme.mp3" id="12_vn5hx"]
 [ext_resource type="Script" path="res://scripts/dayNightCycle.gd" id="12_yy7f3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r70fx"]
@@ -1848,7 +1848,7 @@ position = Vector2(208, -810)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(228, -744)
-stream = ExtResource("11_gje7w")
+stream = ExtResource("12_vn5hx")
 volume_db = 0.8
 autoplay = true
 max_distance = 4000.0

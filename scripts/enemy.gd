@@ -5,13 +5,17 @@ extends CharacterBody2D
 @onready var worldNode = get_node("/root/world")
 @onready var spawnPosition = position
 
+var SpawnTop_right
+var SpawnBottom_left
+
 var speed = 85 
 var spawnCountDown = Status.slimeSpawnTIME
 var player_chase = false
+var goback = false
 var player = null
 
 var dmgTaken
-var health = 100
+var health = Status.slimeHP
 var player_inAtk_range = false
 var can_take_dmg = true
 var dying = false
@@ -31,6 +35,11 @@ func audio_play(movement, track):
 		$AudioStreamSlime_death.play()
 
 
+func _ready():
+	SpawnTop_right = Vector2(spawnPosition.x + 20, spawnPosition.y + 20)
+	SpawnBottom_left = Vector2(spawnPosition.x - 20, spawnPosition.y - 20)
+
+
 # Runs every physics frame
 func _physics_process(delta):
 	dmgTaken = Status.playerATK
@@ -38,7 +47,16 @@ func _physics_process(delta):
 	UpdateHealthBar()
 	deal_with_dmg()
 	
-	if knockback and !dying:
+	if (self.position.x >= SpawnBottom_left.x) and (self.position.x <= SpawnTop_right.x) and (self.position.y >= SpawnBottom_left.y) and (self.position.y <= SpawnTop_right.y):
+		goback = false
+	
+	if goback:
+		position += (spawnPosition - position).normalized() * speed/2 * delta
+		move_and_collide(Vector2(0,0))
+		
+		$AnimatedSprite2D.play("walk")
+		audio_play(1, "walk")
+	elif knockback and !dying:
 		var knockValue = (position - player.position).normalized() * (speed * 3)
 		var knockback_move = move_and_collide(knockValue * delta)
 		await get_tree().create_timer(0.2).timeout
@@ -63,6 +81,7 @@ func enemy():
 func _on_detection_area_body_entered(body):
 	player = body
 	player_chase = true
+	goback = false
 
 
 # When a player leaves the detection area
@@ -150,6 +169,8 @@ func UpdateHealthBar():
 
 # Health regen timer
 func _on_health_regen_timeout():
+	if !player_chase:
+		goback = !goback
 	if health < 100 and !player_chase:
 		health += 100
 		if health > 100:
