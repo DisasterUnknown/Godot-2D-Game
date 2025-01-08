@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var EnemyScene = preload("res://screans/enemy.tscn")
+@onready var EnemyScene = preload("res://screans/SlimeEnemy.tscn")
 
 # Respown the enemy
 func respawn_enemy(spawnPosition, delay):

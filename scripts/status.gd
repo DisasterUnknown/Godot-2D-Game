@@ -1,12 +1,12 @@
 extends Node
 
-var mPlayerHP = 200
+var mPlayerHP = 200  
 var mPlayerATK = 50
 var mPlayerDEF = 25
 var mPlayerSPEED = 175
 var mPlayerLUCK = 50
 
-var playerHP = 100
+var playerHP = 500  # To change
 var playerATK = 25
 var playerDEF = 0
 var playerSPEED = 150

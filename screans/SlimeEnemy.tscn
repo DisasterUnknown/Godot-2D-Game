@@ -1,69 +1,69 @@
 [gd_scene load_steps=25 format=3 uid="uid://y5nkq2pfds87"]
 
-[ext_resource type="Texture2D" uid="uid://brr0cltpmhcl6" path="res://res/enime/slime.png" id="1_15ak0"]
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_jmi4p"]
-[ext_resource type="AudioStream" uid="uid://jifivv4v41pm" path="res://audio/slimeJump.mp3" id="3_av4oa"]
-[ext_resource type="AudioStream" uid="uid://clww1im7liqcr" path="res://audio/slimeDeath.mp3" id="3_dw5nx"]
-[ext_resource type="PackedScene" uid="uid://dekaqw6gpuit1" path="res://screans/slime_collectable.tscn" id="5_o5ogg"]
+[ext_resource type="Script" path="res://scripts/SlimeEnemy.gd" id="1_qwxre"]
+[ext_resource type="Texture2D" uid="uid://brr0cltpmhcl6" path="res://res/enime/slime.png" id="2_7rwnd"]
+[ext_resource type="AudioStream" uid="uid://clww1im7liqcr" path="res://audio/slimeDeath.mp3" id="3_7ni5f"]
+[ext_resource type="AudioStream" uid="uid://jifivv4v41pm" path="res://audio/slimeJump.mp3" id="4_xllgt"]
+[ext_resource type="PackedScene" uid="uid://dekaqw6gpuit1" path="res://screans/slime_collectable.tscn" id="5_ee7ei"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qbws7"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(0, 384, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sw3l3"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(32, 384, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rbekd"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(64, 384, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i8in5"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(96, 384, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ugnmy"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(128, 384, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhuud"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_elggv"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sa5h6"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(64, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vgxwt"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(96, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2fg6d"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(0, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_77o7q"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(32, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2yw8s"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(64, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k04wr"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(96, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xnl86"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(128, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bqtcm"]
-atlas = ExtResource("1_15ak0")
+atlas = ExtResource("2_7rwnd")
 region = Rect2(160, 160, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xpdig"]
@@ -139,8 +139,8 @@ height = 31.9518
 [sub_resource type="CircleShape2D" id="CircleShape2D_v42uj"]
 radius = 23.0
 
-[node name="enemy" type="CharacterBody2D"]
-script = ExtResource("1_jmi4p")
+[node name="SlimeEnemy" type="CharacterBody2D"]
+script = ExtResource("1_qwxre")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.65625, 1.53125)
@@ -174,11 +174,11 @@ shape = SubResource("CircleShape2D_v42uj")
 wait_time = 0.5
 
 [node name="AudioStreamSlime_death" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_dw5nx")
+stream = ExtResource("3_7ni5f")
 bus = &"SFX"
 
 [node name="AudioStreamSlime_jump" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_av4oa")
+stream = ExtResource("4_xllgt")
 volume_db = 6.0
 max_distance = 200.0
 bus = &"SFX"
@@ -196,7 +196,7 @@ show_percentage = false
 wait_time = 20.0
 autostart = true
 
-[node name="slimeCollectable" parent="." instance=ExtResource("5_o5ogg")]
+[node name="slimeCollectable" parent="." instance=ExtResource("5_ee7ei")]
 visible = false
 
 [node name="RewordDisplay" type="Node2D" parent="."]

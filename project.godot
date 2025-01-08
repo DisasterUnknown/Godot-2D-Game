@@ -23,6 +23,7 @@ buses/default_bus_layout="res://audio/default_bus_layout.tres"
 
 Global="*res://scripts/global.gd"
 Status="*res://scripts/status.gd"
+Enemy="*res://scripts/enemy.gd"
 
 [display]
 
