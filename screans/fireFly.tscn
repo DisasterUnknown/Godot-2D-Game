@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfsvkmurx20kc"]
+
+[ext_resource type="Texture2D" uid="uid://f1q6o8j6b6gm" path="res://res/mobs/fireFly/food.tres" id="1_va406"]
+[ext_resource type="Script" path="res://scripts/fireFly.gd" id="2_fm6gf"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-24, -15)
+scale = Vector2(0.6875, 0.6875)
+texture = ExtResource("1_va406")
+script = ExtResource("2_fm6gf")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
+texture = ExtResource("1_va406")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(8, -22)
+scale = Vector2(0.84375, 0.84375)
+texture = ExtResource("1_va406")
+script = ExtResource("2_fm6gf")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D2"]
+texture = ExtResource("1_va406")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(7, -7)
+scale = Vector2(0.921875, 0.921875)
+texture = ExtResource("1_va406")
+script = ExtResource("2_fm6gf")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D3"]
+texture = ExtResource("1_va406")
