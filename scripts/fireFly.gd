@@ -10,7 +10,7 @@ var change_target_interval = randf_range(1.0, 2.0)  # Seconds between target pos
 var direction_smoothness = 0.1  # Smaller values for smoother turns
 var _timer = randi_range(0, 999)
 const lampSize = 0.1
-const lampTime = 0.005
+const lampTime = 0.05
 
 # Noise generator for smooth, curved motion
 var noise = FastNoiseLite.new()
