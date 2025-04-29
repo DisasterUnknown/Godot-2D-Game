@@ -143,7 +143,7 @@ func _on_player_hitbox_body_exited(body):
 # When enemy is in attack range
 func enemy_atk():
 	if enemy_inAtk_range and atk_cooldown and slime.visible:
-		health = health - (Status.slimeATK - randf_range(0, defence))
+		health -= (Status.slimeATK - randf_range(0, defence)) if Status.slimeATK > randf_range(0, defence) else (Status.slimeATK + 10)
 		dmgAnimation()
 		atk_cooldown = false
 		$gainDmg_cooldown.start()

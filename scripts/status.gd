@@ -6,7 +6,7 @@ var mPlayerDEF = 25
 var mPlayerSPEED = 175
 var mPlayerLUCK = 50
 
-var playerHP = 500  # To change
+var playerHP = 100  # To change
 var playerATK = 25
 var playerDEF = 0
 var playerSPEED = 150

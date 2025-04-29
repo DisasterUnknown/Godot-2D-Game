@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://y5nkq2pfds87"]
 
-[ext_resource type="Script" path="res://scripts/SlimeEnemy.gd" id="1_qwxre"]
+[ext_resource type="Script" uid="uid://dbaj671ej3y2l" path="res://scripts/SlimeEnemy.gd" id="1_qwxre"]
 [ext_resource type="Texture2D" uid="uid://brr0cltpmhcl6" path="res://res/enime/slime.png" id="2_7rwnd"]
 [ext_resource type="AudioStream" uid="uid://clww1im7liqcr" path="res://audio/slimeDeath.mp3" id="3_7ni5f"]
 [ext_resource type="AudioStream" uid="uid://jifivv4v41pm" path="res://audio/slimeJump.mp3" id="4_xllgt"]

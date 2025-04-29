@@ -1,10 +1,10 @@
 [gd_scene load_steps=62 format=3 uid="uid://bct2h5k2rpbnq"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_tfc6w"]
+[ext_resource type="Script" uid="uid://b1dmm4rm0x0s7" path="res://scripts/player.gd" id="1_tfc6w"]
 [ext_resource type="Texture2D" uid="uid://c1fga2vwtmicx" path="res://res/player/player.png" id="2_nd5xm"]
 [ext_resource type="AudioStream" uid="uid://c8j4up5meq2rd" path="res://audio/grassSteps.mp3" id="3_jyfbu"]
 [ext_resource type="AudioStream" uid="uid://cnybbvyqp0b0w" path="res://audio/swordAttack.mp3" id="4_6cc1e"]
-[ext_resource type="Script" path="res://scripts/playerLamp.gd" id="4_urwlr"]
+[ext_resource type="Script" uid="uid://cevxt5g2bax80" path="res://scripts/playerLamp.gd" id="4_urwlr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x4t1g"]
 height = 35.9995
@@ -420,8 +420,8 @@ animations = [{
 }]
 
 [sub_resource type="Gradient" id="Gradient_fyssb"]
-offsets = PackedFloat32Array(0, 0.535461, 0.659574)
-colors = PackedColorArray(1, 1, 0.247059, 1, 0.14058, 0.14058, 0, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.0524476, 0.178322, 0.29021, 0.321678, 0.384615, 0.535461, 0.659574)
+colors = PackedColorArray(1, 1, 0.247059, 0.643137, 1, 1, 0.247059, 1, 0.755029, 0.755029, 0.17754, 1, 0.783609, 0.783609, 0.185651, 1, 0.709804, 0.709804, 0.164706, 1, 0.501581, 0.501581, 0.104456, 1, 0.14058, 0.14058, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_thmdy"]
 gradient = SubResource("Gradient_fyssb")
@@ -451,8 +451,9 @@ offset = Vector2(-0.5, -15)
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="PointLight_PlayerLamp" type="PointLight2D" parent="."]
-position = Vector2(3.57628e-07, -11)
-scale = Vector2(0.339062, 0.339062)
+position = Vector2(-9.53674e-07, -12)
+scale = Vector2(0.202539, 0.202539)
+energy = 0.9
 texture = SubResource("GradientTexture2D_thmdy")
 texture_scale = 5.0
 script = ExtResource("4_urwlr")
